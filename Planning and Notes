@@ -1,0 +1,19 @@
+To play Pyramid, you need a full deck of playing cards.
+Cards are randomly drawn and placed in a pyramid pattern 1-2-3-4-5-6-7 with the remaining cards in a deck below
+The user must select two cards that add up to 13. Cards are values 1-13 A-K.
+
+GOALS:
+- working board
+- indicator of what cards are currently selected
+- player can choose if they want deck flipped in 3s or 1s.
+- working hints
+
+Stretch Goals:
+- Easy, Med, Hard modes
+- fun animations
+
+
+
+Code layout:
+Main:
+- Initializer()
