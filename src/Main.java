@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 public class Main {
 
     /*
@@ -7,6 +9,10 @@ public class Main {
     public void Initializer() {
 
 
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new GUI());
     }
 
 
