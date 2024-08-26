@@ -62,6 +62,12 @@ public class GUI extends JComponent implements Runnable {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == next) {
                 mainMenu();
+            } else if (e.getSource() == play) {
+                startGame();
+            } else if (e.getSource() == rules) {
+                rules();
+            } else if (e.getSource() == quit) {
+                quit();
             }
         }
     };
@@ -93,9 +99,13 @@ public class GUI extends JComponent implements Runnable {
 
     //this function will display the main menu of the game
     //menu includes play, rules, and quit buttons
-    public void mainMenu() {
+    private void mainMenu() {
+        //resetting the screen
         content.removeAll();
         content.repaint();
+
+        //putting together main menu
+        //currently there are two panels, "Main Menu" and the button options
         JLabel mainMenu = new JLabel("Main Menu");
         mainMenu.setFont(new Font("Serif", Font.PLAIN, 40));
 
@@ -103,14 +113,44 @@ public class GUI extends JComponent implements Runnable {
         topLabel.add(mainMenu);
         topLabel.setBounds(0, 100, 600, 100);
 
+        play = new JButton("Play");
+        play.addActionListener(actionListener);
+        play.setFont(new Font("Serif", Font.PLAIN, 30));
+        rules = new JButton("Rules");
+        rules.addActionListener(actionListener);
+        rules.setFont(new Font("Serif", Font.PLAIN, 30));
+        quit = new JButton("Quit");
+        quit.addActionListener(actionListener);
+        quit.setFont(new Font("Serif", Font.PLAIN, 30));
 
-        //TODO: Add play, rules, and quit buttons top to bottom
+        JPanel menuOptions = new JPanel();
+        menuOptions.setBounds(250, 200, 600, 400);
+        menuOptions.add(play);
+        menuOptions.add(rules);
+        menuOptions.add(quit);
+        menuOptions.setLayout(new BoxLayout(menuOptions, BoxLayout.PAGE_AXIS));
 
         content.add(topLabel);
+        content.add(menuOptions);
         frame.setLayout(null);
         frame.setSize(600, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+    } //mainMenu()
 
+    //will set up game screen and enter game loop
+    private void startGame() {
+
+    } //startGame()
+
+    //will display an explanatory page with rules and a back button
+    private void rules() {
+
+    } //rules()
+
+    //exits the GUI completely
+    private void quit() {
+        frame.dispose();
     }
+
 }
