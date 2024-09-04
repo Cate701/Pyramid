@@ -3,6 +3,10 @@ import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 /*
  * Program for displaying the GUI
@@ -11,6 +15,10 @@ import java.awt.event.ActionListener;
 
 public class GUI extends JComponent implements Runnable {
 
+    //using a dictionary to map the buttons to cards
+    Dictionary<JButton, Card> buttonMap= new Hashtable<>();
+    ArrayList<Card> deck = new ArrayList<>();
+    int NUM_CARDS_IN_PYRAMID = 28;
     String welcome = "Welcome to Pyramid!";
     JFrame frame = new JFrame("Pyramid");
     JButton next;
@@ -19,6 +27,7 @@ public class GUI extends JComponent implements Runnable {
     JButton quit;
     JButton flipAndReset;
     JButton returnToMenu;
+    JButton deckCard;
 
 
     //The R-- JButtons represent card placements on the board.
@@ -140,7 +149,21 @@ public class GUI extends JComponent implements Runnable {
 
     //will set up game screen and enter game loop
     private void startGame() {
+        //resetting the screen
+        content.removeAll();
+        content.repaint();
 
+        //setting up the righthand panel to flip over and select cards from the deck
+        JPanel deckCol = new JPanel();
+        deckCol.setBounds(450, 0, 150, 600);
+        deckCol.setBackground(Color.lightGray);
+
+
+        content.add(deckCol);
+        frame.setLayout(null);
+        frame.setSize(600, 600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     } //startGame()
 
     //will display an explanatory page with rules and a back button
@@ -152,5 +175,23 @@ public class GUI extends JComponent implements Runnable {
     private void quit() {
         frame.dispose();
     }
+
+    /*
+     * This function will take a deck of cards and "deal" them onto the board.
+     * All of the R buttons will be mapped to a respective card from the deck in buttonMap.
+     * Cards that are dealt will be removed from the deck. The function will return a deck of cards
+     * consisting of the left over cards in the deck.
+     */
+    private ArrayList<Card> dealCards(ArrayList<Card> deck) {
+        JButton[] pyramidCards = new JButton[]{R1, R21, R22, R31, R32, R33, R41, R42, R43, R44, R51, R52, R53, R54,
+                                                R55, R61, R62, R63, R64, R65, R66, R71, R72, R73, R74, R75, R76, R77};
+        for (int i = 0; i < NUM_CARDS_IN_PYRAMID; i++) {
+            //Using i for pyramidCards index and 0 for deck index since .remove() shifts everything left and we want
+            //card that is "next"
+            buttonMap.put(pyramidCards[i], deck.get(0));
+            deck.remove(0);
+        }
+        return deck;
+    } //dealCards()
 
 }
